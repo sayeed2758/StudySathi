@@ -3,7 +3,7 @@
   "short_name": "StudySathi",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#08110b",
-  "theme_color": "#09110c",
+  "background_color": "#f6f8fc",
+  "theme_color": "#f6f8fc",
   "description": "Student Focus Companion"
 }

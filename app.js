@@ -1,19 +1,26 @@
-const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-let duration=15, goal="Exam Preparation", seconds=0, timer=null, setupStep=1;
-const screens={welcome:$("#welcome"),setup:$("#setup"),home:$("#home"),focus:$("#focusScreen"),settings:$("#settingsScreen")};
-function show(x){Object.values(screens).forEach(s=>s.classList.remove("active"));x.classList.add("active");$("#nav").style.display=[screens.home,screens.focus,screens.settings].includes(x)?"flex":"none"}
-$("#getStarted").onclick=()=>{show(screens.setup);setupStep=1;renderSetup()};
-function renderSetup(){$$(".step").forEach(x=>x.classList.toggle("active",Number(x.id.replace("step",""))===setupStep));$("#pbar").style.width=(setupStep*33.33)+"%";$("#ptext").textContent=`${setupStep} of 3`;}
-$$(".next").forEach(b=>b.onclick=()=>{setupStep=Number(b.dataset.step);renderSetup()});
-$$("#dist button").forEach(b=>b.onclick=()=>b.classList.toggle("sel"));
-$$("#goals button").forEach(b=>b.onclick=()=>{$$("#goals button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");goal=b.textContent.replace("○","").trim();});
-$$("#dur button").forEach(b=>b.onclick=()=>{$$("#dur button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");duration=Number(b.firstChild.textContent.trim());});
-function sync(){ $("#homeDur").textContent=`${duration} min session`;$("#homeGoal").textContent=goal;$("#goal2").textContent=goal;$("#setDur").textContent=`${duration} min`;$("#setGoal").textContent=goal;}
-$("#finish").onclick=()=>{sync();show(screens.home)};
-$("#focusBtn").onclick=()=>{seconds=duration*60;updateTimer();show(screens.focus)};
-function updateTimer(){const m=Math.floor(seconds/60).toString().padStart(2,"0"),s=(seconds%60).toString().padStart(2,"0");$("#time").textContent=`${m}:${s}`;}
-$("#timerBtn").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("#timerBtn").innerHTML='Resume <span>▶</span>';$("#status").textContent="Paused";return} $("#timerBtn").innerHTML='Pause <span>Ⅱ</span>';$("#status").textContent="In progress";timer=setInterval(()=>{if(seconds<=0){clearInterval(timer);timer=null;$("#status").textContent="Complete";return}seconds--;updateTimer()},1000)};
-$("#end").onclick=$("#back").onclick=()=>{clearInterval(timer);timer=null;show(screens.home)};
-$("#settings").onclick=()=>show(screens.settings);$("#backSettings").onclick=()=>show(screens.home);
-$$("nav button").forEach(b=>b.onclick=()=>{const t=b.dataset.to;if(t==="home")show(screens.home);if(t==="focus"){seconds=duration*60;updateTimer();show(screens.focus)}if(t==="settings")show(screens.settings);$$("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")});
-show(screens.welcome);
+const state={screen:"home",setup:1,goal:"Exam Preparation",duration:15,seconds:0,timer:null,sessions:Number(localStorage.getItem("ss_sessions")||0),focus:Number(localStorage.getItem("ss_focus")||0),selectedCount:Number(localStorage.getItem("ss_selectedCount")||0)};
+const screens=["welcome","setup","home","focus","protection","settings"];
+const show=s=>{screens.forEach(id=>document.getElementById(id).classList.remove("active"));document.getElementById(s).classList.add("active");state.screen=s;document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.screen===s));document.getElementById("nav").style.display=["home","focus","protection","settings"].includes(s)?"flex":"none";};
+const setupRender=()=>{$$(".setup-step").forEach(x=>x.classList.toggle("active",Number(x.dataset.step)===state.setup));$("#setupProgress").style.width=`${state.setup*33.333}%`;$("#setupText").textContent=`${state.setup} of 3`;};
+const sync=()=>{$("#homeDuration").textContent=`${state.duration} min session`;$("#homeGoal").textContent=state.goal;$("#sessionGoal").textContent=state.goal;$("#settingsDuration").textContent=`${state.duration} min`;$("#settingsGoal").textContent=state.goal;$("#selectedCount").textContent=state.selectedCount;$("#sessions").textContent=state.sessions;$("#todayFocus").textContent=`${Math.floor(state.focus/60)}m`;};
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+
+$("#getStarted").onclick=()=>{show("setup");state.setup=1;setupRender()};
+$$(".next").forEach(b=>b.onclick=()=>{state.setup=Number(b.dataset.next);setupRender()});
+$$("#distractionChoices button").forEach(b=>b.onclick=()=>b.classList.toggle("selected"));
+$$("#goalChoices button").forEach(b=>b.onclick=()=>{$$("#goalChoices button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.goal=b.textContent.replace("○","").trim()});
+$$("#durationChoices button").forEach(b=>b.onclick=()=>{$$("#durationChoices button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");state.duration=Number(b.firstChild.textContent.trim())});
+$("#finishSetup").onclick=()=>{sync();show("home")};
+
+const updateTimer=()=>{const m=Math.floor(state.seconds/60).toString().padStart(2,"0"),s=(state.seconds%60).toString().padStart(2,"0");$("#timer").textContent=`${m}:${s}`};
+const startFocus=()=>{clearInterval(state.timer);state.seconds=state.duration*60;updateTimer();$("#focusHeading").textContent=state.goal;$("#timerStatus").textContent="Ready";$("#timerToggle").innerHTML='Start Focus <span>▶</span>';show("focus")};
+$("#startFocus").onclick=startFocus;
+$("#timerToggle").onclick=()=>{if(state.timer){clearInterval(state.timer);state.timer=null;$("#timerStatus").textContent="Paused";$("#timerToggle").innerHTML='Resume <span>▶</span>';return}$("#timerStatus").textContent="In progress";$("#timerToggle").innerHTML='Pause <span>Ⅱ</span>';state.timer=setInterval(()=>{if(state.seconds<=0){clearInterval(state.timer);state.timer=null;state.sessions++;state.focus+=state.duration*60;localStorage.setItem("ss_sessions",state.sessions);localStorage.setItem("ss_focus",state.focus);sync();$("#timerStatus").textContent="Complete";$("#timerToggle").innerHTML='Start Again <span>↻</span>';return}state.seconds--;updateTimer()},1000)};
+$("#endFocus").onclick=()=>{clearInterval(state.timer);state.timer=null;show("home");sync()};
+$("#focusBack").onclick=()=>{clearInterval(state.timer);state.timer=null;show("home")};
+$("#openProtection").onclick=()=>{sync();show("protection")};
+$("#protectionBack").onclick=()=>show("home");
+$("#settingsBtn").onclick=()=>show("settings");
+$("#settingsBack").onclick=()=>show("home");
+$$("nav button").forEach(b=>b.onclick=()=>{if(b.dataset.screen==="focus")startFocus();else show(b.dataset.screen);sync()});
+sync();show("welcome");

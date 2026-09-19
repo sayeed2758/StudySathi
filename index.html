@@ -1,63 +1,153 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#09110c"><meta name="description" content="StudySathi — Focus more. Study better.">
-<title>StudySathi</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f6f8fc">
+  <meta name="description" content="StudySathi — Student Focus Companion">
+  <title>StudySathi</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><b>S</b><div><strong>StudySathi</strong><small>Focus more. Study better.</small></div></div><button id="settings">⚙</button></header>
+  <header class="top">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div><strong>StudySathi</strong><small>Focus more. Study better.</small></div>
+    </div>
+    <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+  </header>
 
-<section id="welcome" class="screen active">
-  <div class="hero"><span class="eyebrow">YOUR STUDY COMPANION</span><h1>Put your phone<br><em>back on your side.</em></h1>
-  <p>StudySathi helps students protect focused study time, reduce digital distractions and build better habits.</p>
-  <button class="primary" id="getStarted">Get Started <span>→</span></button></div>
-  <div class="features">
-    <article><i>◷</i><h3>Focus Sessions</h3><p>Set a clear study duration and stay on task.</p></article>
-    <article><i>⌁</i><h3>Distraction Control</h3><p>Selected distractions will be handled during focus mode.</p></article>
-    <article><i>✦</i><h3>Smart Insights</h3><p>Use your study pattern to make better decisions.</p></article>
-  </div>
-  <small class="note">Science Exhibition Prototype • Step 1</small>
-</section>
+  <main>
+    <section id="welcome" class="screen active">
+      <div class="hero">
+        <span class="eyebrow">STUDENT FOCUS COMPANION</span>
+        <h1>Make your phone<br><em>work for you.</em></h1>
+        <p>Build focused study sessions, reduce digital interruptions and understand your study habits.</p>
+        <button class="primary" id="getStarted">Get Started <span>→</span></button>
+      </div>
+      <div class="features">
+        <article><i>◷</i><h3>Focus Sessions</h3><p>Choose a duration and study with a clear finish line.</p></article>
+        <article><i>⌁</i><h3>Distraction Protection</h3><p>Selected apps can be protected during a live Android focus session.</p></article>
+        <article><i>✦</i><h3>Study Insights</h3><p>Track your progress and improve your routine.</p></article>
+      </div>
+      <small class="note">School Science Exhibition Prototype</small>
+    </section>
 
-<section id="setup" class="screen">
-  <div class="progress"><span id="pbar"></span></div><div class="ptext"><small>Quick setup</small><b id="ptext">1 of 3</b></div>
-  <div id="step1" class="step active"><span class="eyebrow">LET'S PERSONALIZE IT</span><h2>What distracts you most?</h2><p>Select any that apply.</p>
-    <div class="grid" id="dist"><button>📱 Social Media</button><button>🎬 Shorts & Video</button><button>🎮 Games</button><button>💬 Messaging</button><button>🔔 Notifications</button><button>🌐 Random Browsing</button></div>
-    <button class="primary next" data-step="2">Continue <span>→</span></button>
-  </div>
-  <div id="step2" class="step"><span class="eyebrow">YOUR GOAL</span><h2>What are you studying for?</h2><p>Choose your main goal.</p>
-    <div class="list" id="goals"><button>📚 Homework <span>○</span></button><button>📝 Exam Preparation <span>○</span></button><button>🔁 Revision <span>○</span></button><button>✍️ Practice Questions <span>○</span></button></div>
-    <button class="primary next" data-step="3">Continue <span>→</span></button>
-  </div>
-  <div id="step3" class="step"><span class="eyebrow">FIRST SESSION</span><h2>Choose a focus duration.</h2><p>You can change it later.</p>
-    <div class="dur" id="dur"><button class="sel">15<span>min</span></button><button>25<span>min</span></button><button>45<span>min</span></button><button>60<span>min</span></button></div>
-    <button class="primary" id="finish">Finish Setup <span>✓</span></button>
-  </div>
-</section>
+    <section id="setup" class="screen">
+      <div class="progress"><span id="setupProgress"></span></div>
+      <div class="progress-text"><small>Quick setup</small><b id="setupText">1 of 3</b></div>
 
-<section id="home" class="screen">
- <div class="hello"><div><span class="eyebrow">GOOD TO SEE YOU</span><h2>Study time, let's go.</h2></div><div class="avatar">S</div></div>
- <div class="focus"><div><small>READY TO FOCUS?</small><h3 id="homeDur">15 min session</h3><p id="homeGoal">Exam Preparation</p></div><button id="focusBtn">▶</button></div>
- <div class="stats"><div><small>Today's focus</small><b>0m</b><em>Start your first session</em></div><div><small>Sessions</small><b>0</b><em>Completed today</em></div><div><small>Distractions</small><b>0</b><em>Detected today</em></div><div><small>Streak</small><b>0 days</b><em>Keep building it</em></div></div>
- <div class="insight"><i>✦</i><div><b>Your focus journey starts here.</b><p>Step 2 will connect StudySathi to Android's app-usage system for real distraction control.</p></div></div>
-</section>
+      <div class="setup-step active" data-step="1">
+        <span class="eyebrow">PERSONALIZE</span>
+        <h2>What distracts you most?</h2>
+        <p>Select any options that apply.</p>
+        <div class="choice-grid" id="distractionChoices">
+          <button>📱 Social Media</button><button>🎬 Shorts & Video</button>
+          <button>🎮 Games</button><button>💬 Messaging</button>
+          <button>🔔 Notifications</button><button>🌐 Random Browsing</button>
+        </div>
+        <button class="primary next" data-next="2">Continue <span>→</span></button>
+      </div>
 
-<section id="focusScreen" class="screen">
- <div class="row"><button class="back" id="back">←</button><div><span class="eyebrow">FOCUS SESSION</span><h3>Study Mode</h3></div></div>
- <div class="timer"><div><small>FOCUS TIME</small><b id="time">15:00</b><em id="status">Ready</em></div></div>
- <div class="session"><small>Current goal</small><b id="goal2">Exam Preparation</b><em>App blocking will be added in Step 2.</em></div>
- <button class="primary" id="timerBtn">Start Focus <span>▶</span></button><button class="secondary" id="end">End Session</button>
-</section>
+      <div class="setup-step" data-step="2">
+        <span class="eyebrow">YOUR GOAL</span>
+        <h2>What are you studying for?</h2>
+        <p>Choose your main study goal.</p>
+        <div class="choice-list" id="goalChoices">
+          <button>📚 Homework <span>○</span></button>
+          <button>📝 Exam Preparation <span>○</span></button>
+          <button>🔁 Revision <span>○</span></button>
+          <button>✍️ Practice Questions <span>○</span></button>
+        </div>
+        <button class="primary next" data-next="3">Continue <span>→</span></button>
+      </div>
 
-<section id="settingsScreen" class="screen">
- <div class="row"><button class="back" id="backSettings">←</button><div><span class="eyebrow">SETTINGS</span><h3>StudySathi</h3></div></div>
- <div class="settings"><div>Notifications <span class="dot"></span></div><div>Focus duration <b id="setDur">15 min</b></div><div>Study goal <b id="setGoal">Exam Preparation</b></div></div>
- <div class="about"><div class="avatar">S</div><h3>StudySathi</h3><p>Student Focus Companion</p><small>Exhibition prototype • Step 1</small></div>
-</section>
+      <div class="setup-step" data-step="3">
+        <span class="eyebrow">FIRST SESSION</span>
+        <h2>Choose a focus duration.</h2>
+        <p>You can change it later.</p>
+        <div class="duration-grid" id="durationChoices">
+          <button class="selected">15<span>min</span></button>
+          <button>25<span>min</span></button>
+          <button>45<span>min</span></button>
+          <button>60<span>min</span></button>
+        </div>
+        <button class="primary" id="finishSetup">Finish Setup <span>✓</span></button>
+      </div>
+    </section>
 
-<nav id="nav"><button data-to="home">⌂<small>Home</small></button><button data-to="focusScreen">◷<small>Focus</small></button><button data-to="settingsScreen">⚙<small>Settings</small></button></nav>
+    <section id="home" class="screen">
+      <div class="hello">
+        <div><span class="eyebrow">GOOD TO SEE YOU</span><h2>Study time, let's go.</h2></div>
+        <div class="avatar">S</div>
+      </div>
+
+      <div class="focus-card">
+        <div><small>READY TO FOCUS?</small><h3 id="homeDuration">15 min session</h3><p id="homeGoal">Exam Preparation</p></div>
+        <button id="startFocus" class="play-btn">▶</button>
+      </div>
+
+      <div class="stats">
+        <div><small>Today's focus</small><b id="todayFocus">0m</b><em>Start your first session</em></div>
+        <div><small>Sessions</small><b id="sessions">0</b><em>Completed today</em></div>
+        <div><small>Distractions</small><b id="distractions">0</b><em>Detected today</em></div>
+        <div><small>Streak</small><b id="streak">0 days</b><em>Keep building it</em></div>
+      </div>
+
+      <div class="protection-card">
+        <div class="protection-icon">⌁</div>
+        <div class="protection-copy">
+          <div class="row-top"><span class="section-title">DISTRACTION PROTECTION</span><span class="status-pill" id="webProtectionStatus">WEB PREVIEW</span></div>
+          <h3 id="protectionTitle">Connect your Android focus engine</h3>
+          <p>The website shows the StudySathi experience. Real app detection and protection run in the Android app.</p>
+        </div>
+        <button class="link-btn" id="openProtection">View</button>
+      </div>
+    </section>
+
+    <section id="focus" class="screen">
+      <div class="screen-head"><button class="back-btn" id="focusBack">←</button><div><span class="eyebrow">FOCUS SESSION</span><h3 id="focusHeading">Study Mode</h3></div></div>
+      <div class="timer"><div><small>FOCUS TIME</small><b id="timer">15:00</b><em id="timerStatus">Ready</em></div></div>
+      <div class="session-card"><small>Current goal</small><b id="sessionGoal">Exam Preparation</b><em>Android distraction protection will run alongside this session when connected.</em></div>
+      <button class="primary" id="timerToggle">Start Focus <span>▶</span></button>
+      <button class="secondary" id="endFocus">End Session</button>
+    </section>
+
+    <section id="protection" class="screen">
+      <div class="screen-head"><button class="back-btn" id="protectionBack">←</button><div><span class="eyebrow">DISTRACTION PROTECTION</span><h3>Focus Shield</h3></div></div>
+      <div class="shield-card">
+        <div class="shield-badge">⌁</div>
+        <div><small>ANDROID CONNECTION</small><h3>Native focus engine</h3><p>Connect the Android build to manage selected apps during an active focus session.</p></div>
+      </div>
+      <div class="mini-card"><span>Connection</span><b>Android app required</b></div>
+      <div class="mini-card"><span>Selected apps</span><b id="selectedCount">0</b></div>
+      <div class="mini-card"><span>Protection mode</span><b>Focus-session based</b></div>
+      <div class="info-card">
+        <strong>How it works</strong>
+        <p>1. Select distracting apps in the Android app.<br>2. Give explicit Focus Protection permission.<br>3. Start a focus session.<br>4. StudySathi detects selected-app launches and returns you to your focus screen.</p>
+      </div>
+    </section>
+
+    <section id="settings" class="screen">
+      <div class="screen-head"><button class="back-btn" id="settingsBack">←</button><div><span class="eyebrow">SETTINGS</span><h3>StudySathi</h3></div></div>
+      <div class="settings-card">
+        <div>Notifications <span class="green-dot"></span></div>
+        <div>Focus duration <b id="settingsDuration">15 min</b></div>
+        <div>Study goal <b id="settingsGoal">Exam Preparation</b></div>
+      </div>
+      <div class="about-card"><div class="avatar">S</div><h3>StudySathi</h3><p>Student Focus Companion</p><small>Exhibition prototype</small></div>
+    </section>
+  </main>
+
+  <nav id="nav">
+    <button class="active" data-screen="home">⌂<small>Home</small></button>
+    <button data-screen="focus">◷<small>Focus</small></button>
+    <button data-screen="protection">⌁<small>Shield</small></button>
+    <button data-screen="settings">⚙<small>Settings</small></button>
+  </nav>
 </div>
 <script src="app.js"></script>
-</body></html>
+</body>
+</html>

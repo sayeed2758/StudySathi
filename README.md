@@ -1,24 +1,24 @@
-# StudySathi — Step 1
+# StudySathi — Step 3 Integrated
 
-Simple five-file foundation.
-
-## Upload these files directly to the ROOT of the GitHub repository:
+## Root web files
 - index.html
 - style.css
 - app.js
 - manifest.json
-- README.md
+
+## Web changes
+- White premium theme
+- Home / Focus / Shield / Settings navigation
+- A dedicated Focus Shield screen
+- Step 2 wording removed from dashboard
+- Focus timer and basic local statistics retained
+
+## Android
+The `android/` folder contains the native Step 3 prototype:
+- Installed launchable apps are listed
+- Student can select apps to protect
+- Selection is stored locally
+- Accessibility service checks the selected package set during Focus Mode
 
 ## Important
-Do not create extra folders for Step 1.
-
-This step contains the polished UI foundation, onboarding, focus-duration selection, dashboard and working focus timer.
-
-Real Android app-blocking is NOT claimed in Step 1. That will be built and tested separately in Step 2.
-
-### Replacement rule for future phases
-I will always clearly say:
-- ADD = new file
-- REPLACE = replace only that exact file
-- KEEP = do not touch
-- DELETE = only if explicitly instructed
+The GitHub Pages site is a UI/demo layer. Real control of other Android apps requires the native Android build.
