@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">StudySathi</string>
     <string name="accessibility_label">StudySathi Focus Protection</string>
-    <string name="accessibility_disclosure">StudySathi uses Accessibility access only after your explicit consent to detect when a selected app is opened during an active focus session. StudySathi does not need the contents of your messages or passwords for this prototype.</string>
 </resources>
