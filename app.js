@@ -24,3 +24,7 @@ $("#settingsBtn").onclick=()=>show("settings");
 $("#settingsBack").onclick=()=>show("home");
 $$("nav button").forEach(b=>b.onclick=()=>{if(b.dataset.screen==="focus")startFocus();else show(b.dataset.screen);sync()});
 sync();show("welcome");
+
+
+// StudySathi PWA installation support
+if ("serviceWorker" in navigator) { window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{scope:"./"}).catch(console.error)); }
