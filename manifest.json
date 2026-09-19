@@ -1,0 +1,9 @@
+{
+  "name": "StudySathi",
+  "short_name": "StudySathi",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#08110b",
+  "theme_color": "#09110c",
+  "description": "Student Focus Companion"
+}
